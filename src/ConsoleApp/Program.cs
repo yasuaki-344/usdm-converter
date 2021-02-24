@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Mime;
 using System.Reflection;
@@ -9,11 +10,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using UsdmConverter.ApplicationCore.Entities;
 using UsdmConverter.ApplicationCore.Interfaces;
 using UsdmConverter.ApplicationCore.Services;
 using UsdmConverter.Infrastructure;
-using UsdmConverter.ApplicationCore.Entities;
-
 namespace UsdmConverter.ConsoleApp
 {
     class Program
@@ -70,7 +70,250 @@ namespace UsdmConverter.ConsoleApp
         {
             var data = new RequirementSpecification
             {
-                Title = "要求仕様書"
+                Title = "要求仕様書",
+                Requirements = new System.Collections.Generic.List<UpperRequirement>()
+                {
+                    new UpperRequirement
+                    {
+                        ID = "REQ1",
+                        Summay = "要求事項１",
+                        Reason = "要求事項１の理由",
+                        Description = "要求事項１の説明",
+                        Requirements = new List<LowerRequirement>()
+                        {
+                            new LowerRequirement
+                            {
+                                ID = "REQ1-1",
+                                Summay = "要求事項１-1",
+                                Reason = "要求事項１-1の理由",
+                                Description = "要求事項１-1の説明",
+                                SpecificationGroups = new List<SpecificationGroup>()
+                                {
+                                    new SpecificationGroup
+                                    {
+                                        Category = "仕様グループ1",
+                                        Specifications = new List<Specification>()
+                                        {
+                                            new Specification
+                                            {
+                                                IsImplemented = false,
+                                                ID = "SPEC1-1-1",
+                                                Description = "仕様の詳細1-1-1",
+                                            },
+                                            new Specification
+                                            {
+                                                IsImplemented = true,
+                                                ID = "SPEC1-1-2",
+                                                Description = "仕様の詳細1-1-2",
+                                            },
+                                            new Specification
+                                            {
+                                                IsImplemented = false,
+                                                ID = "SPEC1-1-3",
+                                                Description = "仕様の詳細1-1-3",
+                                            },
+                                        }
+                                    }
+                                },
+                            },
+                            new LowerRequirement
+                            {
+                                ID = "REQ1-2",
+                                Summay = "要求事項１-2",
+                                Reason = "要求事項１-2の理由",
+                                Description = "要求事項１-2の説明",
+                                SpecificationGroups = new List<SpecificationGroup>()
+                                {
+                                    new SpecificationGroup
+                                    {
+                                        Category = "仕様グループ1",
+                                        Specifications = new List<Specification>()
+                                        {
+                                            new Specification
+                                            {
+                                                IsImplemented = false,
+                                                ID = "SPEC1-2-1",
+                                                Description = "仕様の詳細1-2-1",
+                                            },
+                                            new Specification
+                                            {
+                                                IsImplemented = true,
+                                                ID = "SPEC1-2-2",
+                                                Description = "仕様の詳細1-2-2",
+                                            },
+                                            new Specification
+                                            {
+                                                IsImplemented = false,
+                                                ID = "SPEC1-2-3",
+                                                Description = "仕様の詳細1-2-3",
+                                            },
+                                        }
+                                    }
+                                },
+                            }
+                        }
+                    },
+                    new UpperRequirement
+                    {
+                        ID = "REQ2",
+                        Summay = "要求事項2",
+                        Reason = "要求事項2の理由",
+                        Description = "要求事項2の説明",
+                        Requirements = new List<LowerRequirement>()
+                        {
+                            new LowerRequirement
+                            {
+                                ID = "REQ1-1",
+                                Summay = "要求事項１-1",
+                                Reason = "要求事項１-1の理由",
+                                Description = "要求事項１-1の説明",
+                                SpecificationGroups = new List<SpecificationGroup>()
+                                {
+                                    new SpecificationGroup
+                                    {
+                                        Category = "仕様グループ1",
+                                        Specifications = new List<Specification>()
+                                        {
+                                            new Specification
+                                            {
+                                                IsImplemented = false,
+                                                ID = "SPEC1-1-1",
+                                                Description = "仕様の詳細1-1-1",
+                                            },
+                                            new Specification
+                                            {
+                                                IsImplemented = true,
+                                                ID = "SPEC1-1-2",
+                                                Description = "仕様の詳細1-1-2",
+                                            },
+                                            new Specification
+                                            {
+                                                IsImplemented = false,
+                                                ID = "SPEC1-1-3",
+                                                Description = "仕様の詳細1-1-3",
+                                            },
+                                        }
+                                    }
+                                },
+                            },
+                            new LowerRequirement
+                            {
+                                ID = "REQ1-2",
+                                Summay = "要求事項１-2",
+                                Reason = "要求事項１-2の理由",
+                                Description = "要求事項１-2の説明",
+                                SpecificationGroups = new List<SpecificationGroup>()
+                                {
+                                    new SpecificationGroup
+                                    {
+                                        Category = "仕様グループ1",
+                                        Specifications = new List<Specification>()
+                                        {
+                                            new Specification
+                                            {
+                                                IsImplemented = false,
+                                                ID = "SPEC1-2-1",
+                                                Description = "仕様の詳細1-2-1",
+                                            },
+                                            new Specification
+                                            {
+                                                IsImplemented = true,
+                                                ID = "SPEC1-2-2",
+                                                Description = "仕様の詳細1-2-2",
+                                            },
+                                            new Specification
+                                            {
+                                                IsImplemented = false,
+                                                ID = "SPEC1-2-3",
+                                                Description = "仕様の詳細1-2-3",
+                                            },
+                                        }
+                                    }
+                                },
+                            }
+                        }
+                    },
+                    new UpperRequirement
+                    {
+                        ID = "REQ3",
+                        Summay = "要求事項3",
+                        Reason = "要求事項3の理由",
+                        Description = "要求事項3の説明",
+                        Requirements = new List<LowerRequirement>()
+                        {
+                            new LowerRequirement
+                            {
+                                ID = "REQ1-1",
+                                Summay = "要求事項１-1",
+                                Reason = "要求事項１-1の理由",
+                                Description = "要求事項１-1の説明",
+                                SpecificationGroups = new List<SpecificationGroup>()
+                                {
+                                    new SpecificationGroup
+                                    {
+                                        Category = "仕様グループ1",
+                                        Specifications = new List<Specification>()
+                                        {
+                                            new Specification
+                                            {
+                                                IsImplemented = false,
+                                                ID = "SPEC1-1-1",
+                                                Description = "仕様の詳細1-1-1",
+                                            },
+                                            new Specification
+                                            {
+                                                IsImplemented = true,
+                                                ID = "SPEC1-1-2",
+                                                Description = "仕様の詳細1-1-2",
+                                            },
+                                            new Specification
+                                            {
+                                                IsImplemented = false,
+                                                ID = "SPEC1-1-3",
+                                                Description = "仕様の詳細1-1-3",
+                                            },
+                                        }
+                                    }
+                                },
+                            },
+                            new LowerRequirement
+                            {
+                                ID = "REQ1-2",
+                                Summay = "要求事項１-2",
+                                Reason = "要求事項１-2の理由",
+                                Description = "要求事項１-2の説明",
+                                SpecificationGroups = new List<SpecificationGroup>()
+                                {
+                                    new SpecificationGroup
+                                    {
+                                        Category = "仕様グループ1",
+                                        Specifications = new List<Specification>()
+                                        {
+                                            new Specification
+                                            {
+                                                IsImplemented = false,
+                                                ID = "SPEC1-2-1",
+                                                Description = "仕様の詳細1-2-1",
+                                            },
+                                            new Specification
+                                            {
+                                                IsImplemented = true,
+                                                ID = "SPEC1-2-2",
+                                                Description = "仕様の詳細1-2-2",
+                                            },
+                                            new Specification
+                                            {
+                                                IsImplemented = false,
+                                                ID = "SPEC1-2-3",
+                                                Description = "仕様の詳細1-2-3",
+                                            },
+                                        }
+                                    }
+                                },
+                            }
+                        }
+                    }
+                }
             };
             var book = _excelDecoder.Decode(data);
             _excelWriter.Write(book, excelFilePath);
