@@ -5,4 +5,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="DotnetCore.NPOI" Version="1.2.3" />
+  </ItemGroup>
+
 </Project>
