@@ -1,4 +1,5 @@
-﻿using UsdmConverter.ApplicationCore.Entities;
+﻿using NPOI.SS.UserModel;
+using UsdmConverter.ApplicationCore.Entities;
 using UsdmConverter.ApplicationCore.Interfaces;
 
 namespace UsdmConverter.ApplicationCore.Services
@@ -10,6 +11,11 @@ namespace UsdmConverter.ApplicationCore.Services
         /// </summary>
         public ExcelDecoder()
         {
+        }
+
+        public IWorkbook Decode(RequirementSpecification data)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
