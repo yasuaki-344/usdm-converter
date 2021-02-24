@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using UsdmConverter.ApplicationCore.Interfaces;
 using UsdmConverter.ApplicationCore.Services;
 using UsdmConverter.Infrastructure;
+using UsdmConverter.ApplicationCore.Entities;
 
 namespace UsdmConverter.ConsoleApp
 {
@@ -67,7 +68,9 @@ namespace UsdmConverter.ConsoleApp
             [Option("o", "output Excel file path.")] string excelFilePath
         )
         {
-            throw new NotImplementedException();
+            var data = new RequirementSpecification();
+            var book = _excelDecoder.Decode(data);
+            _excelWriter.Write(book, excelFilePath);
         }
 
         [Command("md", "convert excel to markdown")]
