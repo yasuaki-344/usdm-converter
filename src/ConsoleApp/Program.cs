@@ -68,7 +68,10 @@ namespace UsdmConverter.ConsoleApp
             [Option("o", "output Excel file path.")] string excelFilePath
         )
         {
-            var data = new RequirementSpecification();
+            var data = new RequirementSpecification
+            {
+                Title = "要求仕様書"
+            };
             var book = _excelDecoder.Decode(data);
             _excelWriter.Write(book, excelFilePath);
         }

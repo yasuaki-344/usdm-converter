@@ -1,4 +1,5 @@
 ﻿using NPOI.SS.UserModel;
+using NPOI.XSSF.UserModel;
 using UsdmConverter.ApplicationCore.Entities;
 using UsdmConverter.ApplicationCore.Interfaces;
 
@@ -15,7 +16,9 @@ namespace UsdmConverter.ApplicationCore.Services
 
         public IWorkbook Decode(RequirementSpecification data)
         {
-            throw new System.NotImplementedException();
+            var book = new XSSFWorkbook();
+            book.CreateSheet(data.Title);
+            return book;
         }
     }
 }
