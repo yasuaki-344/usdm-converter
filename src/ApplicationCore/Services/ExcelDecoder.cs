@@ -1,5 +1,5 @@
+﻿using UsdmConverter.ApplicationCore.Entities;
 using UsdmConverter.ApplicationCore.Interfaces;
-using UsdmConverter.ApplicationCore.Entities;
 
 namespace UsdmConverter.ApplicationCore.Services
 {

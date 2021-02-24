@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="DotnetCore.NPOI" Version="1.2.3" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
     <PackageReference Include="Microsoft.Toolkit.Parsers" Version="6.1.1" />
   </ItemGroup>
 
