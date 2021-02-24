@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using UsdmConverter.ApplicationCore.Interfaces;
 using UsdmConverter.ApplicationCore.Services;
+using UsdmConverter.Infrastructure;
 
 namespace UsdmConverter.ConsoleApp
 {
@@ -25,7 +26,9 @@ namespace UsdmConverter.ConsoleApp
                 })
                 .ConfigureServices((context, services) =>
                 {
+                    services.AddSingleton<IExcelWriter, ExcelWriter>();
                     services.AddScoped<IMarkdownParser, MarkdownParser>();
+                    services.AddScoped<IExcelDecoder, ExcelDecoder>();
                 })
                 .RunConsoleAppFrameworkAsync<ApplicationLogic>(args);
         }
@@ -34,17 +37,28 @@ namespace UsdmConverter.ConsoleApp
     public class ApplicationLogic : ConsoleAppBase
     {
         private readonly ILogger<ApplicationLogic> _logger;
-
+        private readonly IExcelWriter _excelWriter;
+        private readonly IMarkdownParser _markdownParser;
+        private readonly IExcelDecoder _excelDecoder;
 
         /// <summary>
         /// Initializes a new instance of ApplicationLogic class.
         /// </summary>
         /// <param name="logger">logger object</param>
+        /// <param name="excelWriter"></param>
+        /// <param name="markdownParser"></param>
+        /// <param name="excelDecoder"></param>
         public ApplicationLogic(
-            ILogger<ApplicationLogic> logger
+            ILogger<ApplicationLogic> logger,
+            IExcelWriter excelWriter,
+            IMarkdownParser markdownParser,
+            IExcelDecoder excelDecoder
         )
         {
             _logger = logger;
+            _excelWriter = excelWriter;
+            _markdownParser = markdownParser;
+            _excelDecoder = excelDecoder;
         }
 
         [Command("xlsx", "convert markdown to excel")]
