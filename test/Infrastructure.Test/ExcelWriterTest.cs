@@ -7,7 +7,7 @@ using Xunit;
 
 namespace UsdmConverter.Infrastructure.Test
 {
-    public class UnitTest1
+    public class ExcelWriterTest
     {
         [Fact]
         public void ThrowArgumentNullExceptionGivenEmtpyFilePath()
