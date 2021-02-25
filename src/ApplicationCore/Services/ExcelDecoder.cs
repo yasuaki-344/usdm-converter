@@ -21,6 +21,10 @@ namespace UsdmConverter.ApplicationCore.Services
         {
             var book = new XSSFWorkbook();
             book.CreateSheet(data.Title);
+
+            var font = book.CreateFont();
+            font.FontName = "Yu Gothic Medium";
+
             var headingStyle = book.CreateCellStyle();
             headingStyle.BorderTop = BorderStyle.Thin;
             headingStyle.BorderRight = BorderStyle.Thin;
@@ -28,6 +32,7 @@ namespace UsdmConverter.ApplicationCore.Services
             headingStyle.BorderBottom = BorderStyle.Thin;
             headingStyle.FillForegroundColor = IndexedColors.LightTurquoise.Index;
             headingStyle.FillPattern = FillPattern.SolidForeground;
+            headingStyle.SetFont(font);
 
             var upperHeadingStyle = book.CreateCellStyle();
             upperHeadingStyle.BorderTop = BorderStyle.Thin;
@@ -36,6 +41,7 @@ namespace UsdmConverter.ApplicationCore.Services
             upperHeadingStyle.BorderBottom = BorderStyle.None;
             upperHeadingStyle.FillForegroundColor = IndexedColors.LightTurquoise.Index;
             upperHeadingStyle.FillPattern = FillPattern.SolidForeground;
+            upperHeadingStyle.SetFont(font);
 
             var mediumHeadingStyle = book.CreateCellStyle();
             mediumHeadingStyle.BorderTop = BorderStyle.None;
@@ -44,6 +50,7 @@ namespace UsdmConverter.ApplicationCore.Services
             mediumHeadingStyle.BorderBottom = BorderStyle.None;
             mediumHeadingStyle.FillForegroundColor = IndexedColors.LightTurquoise.Index;
             mediumHeadingStyle.FillPattern = FillPattern.SolidForeground;
+            mediumHeadingStyle.SetFont(font);
 
             var lowerHeadingStyle = book.CreateCellStyle();
             lowerHeadingStyle.BorderTop = BorderStyle.None;
@@ -52,12 +59,14 @@ namespace UsdmConverter.ApplicationCore.Services
             lowerHeadingStyle.BorderBottom = BorderStyle.Thin;
             lowerHeadingStyle.FillForegroundColor = IndexedColors.LightTurquoise.Index;
             lowerHeadingStyle.FillPattern = FillPattern.SolidForeground;
+            lowerHeadingStyle.SetFont(font);
 
             var baseStyle = book.CreateCellStyle();
             baseStyle.BorderTop = BorderStyle.Thin;
             baseStyle.BorderRight = BorderStyle.Thin;
             baseStyle.BorderLeft = BorderStyle.Thin;
             baseStyle.BorderBottom = BorderStyle.Thin;
+            baseStyle.SetFont(font);
 
             var sheet = book.GetSheet(data.Title);
             var rowIndex = 0;
