@@ -27,6 +27,7 @@ namespace UsdmConverter.ConsoleApp
                 })
                 .ConfigureServices((context, services) =>
                 {
+                    services.AddSingleton<IMarkdownReader, MarkdownReader>();
                     services.AddSingleton<IExcelWriter, ExcelWriter>();
                     services.AddScoped<IMarkdownParser, MarkdownParser>();
                     services.AddScoped<IExcelDecoder, ExcelDecoder>();
@@ -39,6 +40,7 @@ namespace UsdmConverter.ConsoleApp
     {
         private readonly ILogger<ApplicationLogic> _logger;
         private readonly IExcelWriter _excelWriter;
+        private readonly IMarkdownReader _markdownReader;
         private readonly IMarkdownParser _markdownParser;
         private readonly IExcelDecoder _excelDecoder;
 
@@ -47,17 +49,21 @@ namespace UsdmConverter.ConsoleApp
         /// </summary>
         /// <param name="logger">logger object</param>
         /// <param name="excelWriter"></param>
+        /// <param name="markdownReader"></param>
         /// <param name="markdownParser"></param>
         /// <param name="excelDecoder"></param>
+        /// <param name="excelWriter"></param>
         public ApplicationLogic(
             ILogger<ApplicationLogic> logger,
             IExcelWriter excelWriter,
+            IMarkdownReader markdownReader,
             IMarkdownParser markdownParser,
             IExcelDecoder excelDecoder
         )
         {
             _logger = logger;
             _excelWriter = excelWriter;
+            _markdownReader = markdownReader;
             _markdownParser = markdownParser;
             _excelDecoder = excelDecoder;
         }
@@ -315,7 +321,10 @@ namespace UsdmConverter.ConsoleApp
                     }
                 }
             };
-            var book = _excelDecoder.Decode(data);
+
+            var markdown = _markdownReader.ReadToEnd(markdownFilePath);
+            var usdm = _markdownParser.Parse(markdown);
+            var book = _excelDecoder.Decode(usdm);
             _excelWriter.Write(book, excelFilePath);
         }
 
