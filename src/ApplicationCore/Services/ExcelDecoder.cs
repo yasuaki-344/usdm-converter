@@ -25,50 +25,19 @@ namespace UsdmConverter.ApplicationCore.Services
             var font = book.CreateFont();
             font.FontName = "Yu Gothic Medium";
 
-            var headingStyle = book.CreateCellStyle();
-            headingStyle.BorderTop = BorderStyle.Thin;
-            headingStyle.BorderRight = BorderStyle.Thin;
-            headingStyle.BorderLeft = BorderStyle.Thin;
-            headingStyle.BorderBottom = BorderStyle.Thin;
-            headingStyle.FillForegroundColor = IndexedColors.LightTurquoise.Index;
-            headingStyle.FillPattern = FillPattern.SolidForeground;
-            headingStyle.SetFont(font);
-
-            var upperHeadingStyle = book.CreateCellStyle();
-            upperHeadingStyle.BorderTop = BorderStyle.Thin;
-            upperHeadingStyle.BorderRight = BorderStyle.Thin;
-            upperHeadingStyle.BorderLeft = BorderStyle.Thin;
-            upperHeadingStyle.BorderBottom = BorderStyle.None;
-            upperHeadingStyle.FillForegroundColor = IndexedColors.LightTurquoise.Index;
-            upperHeadingStyle.FillPattern = FillPattern.SolidForeground;
-            upperHeadingStyle.SetFont(font);
-
-            var mediumHeadingStyle = book.CreateCellStyle();
-            mediumHeadingStyle.BorderTop = BorderStyle.None;
-            mediumHeadingStyle.BorderRight = BorderStyle.Thin;
-            mediumHeadingStyle.BorderLeft = BorderStyle.Thin;
-            mediumHeadingStyle.BorderBottom = BorderStyle.None;
-            mediumHeadingStyle.FillForegroundColor = IndexedColors.LightTurquoise.Index;
-            mediumHeadingStyle.FillPattern = FillPattern.SolidForeground;
-            mediumHeadingStyle.SetFont(font);
-
-            var lowerHeadingStyle = book.CreateCellStyle();
-            lowerHeadingStyle.BorderTop = BorderStyle.None;
-            lowerHeadingStyle.BorderRight = BorderStyle.Thin;
-            lowerHeadingStyle.BorderLeft = BorderStyle.Thin;
-            lowerHeadingStyle.BorderBottom = BorderStyle.Thin;
-            lowerHeadingStyle.FillForegroundColor = IndexedColors.LightTurquoise.Index;
-            lowerHeadingStyle.FillPattern = FillPattern.SolidForeground;
-            lowerHeadingStyle.SetFont(font);
-
-            var baseStyle = book.CreateCellStyle();
-            baseStyle.BorderTop = BorderStyle.Thin;
-            baseStyle.BorderRight = BorderStyle.Thin;
-            baseStyle.BorderLeft = BorderStyle.Thin;
-            baseStyle.BorderBottom = BorderStyle.Thin;
-            baseStyle.SetFont(font);
+            var headingStyle = CreateHeadingCellStyle(book, font);
+            var upperHeadingStyle = CreateUpperHeadingCellStyle(book, font);
+            var mediumHeadingStyle = CreateMediumHeadingCellStyle(book, font);
+            var lowerHeadingStyle = CreateLowerHeadingCellStyle(book, font);
+            var baseStyle = CreateBasicCellStyle(book, font);
+            var itemStyle = CreateItemCellStyle(book, font);
 
             var sheet = book.GetSheet(data.Title);
+            sheet.SetColumnWidth(0, 256 * 12);
+            sheet.SetColumnWidth(1, 256 * 12);
+            sheet.SetColumnWidth(2, 256 * 12);
+            sheet.SetColumnWidth(3, 256 * 90);
+
             var rowIndex = 0;
             foreach (var element in data.Requirements)
             {
@@ -86,7 +55,7 @@ namespace UsdmConverter.ApplicationCore.Services
                 WriteCell(sheet, 2, rowIndex, element.Reason);
                 sheet.AddMergedRegion(new CellRangeAddress(rowIndex, rowIndex, 2, 3));
                 WriteStyle(sheet, 0, rowIndex, mediumHeadingStyle);
-                WriteStyle(sheet, 1, rowIndex, baseStyle);
+                WriteStyle(sheet, 1, rowIndex, itemStyle);
                 WriteStyle(sheet, 2, rowIndex, baseStyle);
                 WriteStyle(sheet, 3, rowIndex, baseStyle);
                 rowIndex++;
@@ -94,7 +63,7 @@ namespace UsdmConverter.ApplicationCore.Services
                 WriteCell(sheet, 2, rowIndex, element.Description);
                 sheet.AddMergedRegion(new CellRangeAddress(rowIndex, rowIndex, 2, 3));
                 WriteStyle(sheet, 0, rowIndex, lowerHeadingStyle);
-                WriteStyle(sheet, 1, rowIndex, baseStyle);
+                WriteStyle(sheet, 1, rowIndex, itemStyle);
                 WriteStyle(sheet, 2, rowIndex, baseStyle);
                 WriteStyle(sheet, 3, rowIndex, baseStyle);
                 rowIndex++;
@@ -110,13 +79,13 @@ namespace UsdmConverter.ApplicationCore.Services
                     WriteCell(sheet, 2, rowIndex, "理由");
                     WriteCell(sheet, 3, rowIndex, item.Reason);
                     WriteStyle(sheet, 1, rowIndex, mediumHeadingStyle);
-                    WriteStyle(sheet, 2, rowIndex, baseStyle);
+                    WriteStyle(sheet, 2, rowIndex, itemStyle);
                     WriteStyle(sheet, 3, rowIndex, baseStyle);
                     rowIndex++;
                     WriteCell(sheet, 2, rowIndex, "説明");
                     WriteCell(sheet, 3, rowIndex, item.Description);
                     WriteStyle(sheet, 1, rowIndex, lowerHeadingStyle);
-                    WriteStyle(sheet, 2, rowIndex, baseStyle);
+                    WriteStyle(sheet, 2, rowIndex, itemStyle);
                     WriteStyle(sheet, 3, rowIndex, baseStyle);
                     rowIndex++;
                     foreach (var group in item.SpecificationGroups)
@@ -143,9 +112,126 @@ namespace UsdmConverter.ApplicationCore.Services
                     }
                 }
             }
-            sheet.SetColumnWidth(1, 256 * 12);
-            sheet.SetColumnWidth(2, 256 * 15);
             return book;
+        }
+        private ICellStyle CreateBasicCellStyle(IWorkbook book, IFont font)
+        {
+            var cellStyle = book.CreateCellStyle();
+            // font
+            cellStyle.SetFont(font);
+            // boreder style
+            cellStyle.BorderTop = BorderStyle.Thin;
+            cellStyle.BorderRight = BorderStyle.Thin;
+            cellStyle.BorderLeft = BorderStyle.Thin;
+            cellStyle.BorderBottom = BorderStyle.Thin;
+            // text alignment
+            cellStyle.Alignment = HorizontalAlignment.Left;
+            cellStyle.VerticalAlignment = VerticalAlignment.Top;
+            cellStyle.WrapText = true;
+            return cellStyle;
+        }
+
+        private ICellStyle CreateItemCellStyle(IWorkbook book, IFont font)
+        {
+            var cellStyle = book.CreateCellStyle();
+            // font
+            cellStyle.SetFont(font);
+            // boreder style
+            cellStyle.BorderTop = BorderStyle.Thin;
+            cellStyle.BorderRight = BorderStyle.Thin;
+            cellStyle.BorderLeft = BorderStyle.Thin;
+            cellStyle.BorderBottom = BorderStyle.Thin;
+            // text alignment
+            cellStyle.Alignment = HorizontalAlignment.Center;
+            cellStyle.VerticalAlignment = VerticalAlignment.Top;
+            cellStyle.WrapText = true;
+            return cellStyle;
+        }
+
+        private ICellStyle CreateHeadingCellStyle(IWorkbook book, IFont font)
+        {
+            var cellStyle = book.CreateCellStyle();
+            // font
+            cellStyle.SetFont(font);
+            // boreder style
+            cellStyle.BorderTop = BorderStyle.Thin;
+            cellStyle.BorderRight = BorderStyle.Thin;
+            cellStyle.BorderLeft = BorderStyle.Thin;
+            cellStyle.BorderBottom = BorderStyle.Thin;
+            // background color
+            cellStyle.FillForegroundColor = IndexedColors.LightTurquoise.Index;
+            cellStyle.FillPattern = FillPattern.SolidForeground;
+
+            // text alignment
+            cellStyle.Alignment = HorizontalAlignment.Left;
+            cellStyle.VerticalAlignment = VerticalAlignment.Top;
+            cellStyle.WrapText = true;
+            return cellStyle;
+        }
+
+        private ICellStyle CreateUpperHeadingCellStyle(IWorkbook book, IFont font)
+        {
+            var cellStyle = book.CreateCellStyle();
+            // font
+            cellStyle.SetFont(font);
+            // boreder style
+            cellStyle.BorderTop = BorderStyle.Thin;
+            cellStyle.BorderRight = BorderStyle.Thin;
+            cellStyle.BorderLeft = BorderStyle.Thin;
+            cellStyle.BorderBottom = BorderStyle.None;
+            // background color
+            cellStyle.FillForegroundColor = IndexedColors.LightTurquoise.Index;
+            cellStyle.FillPattern = FillPattern.SolidForeground;
+            // text alignment
+            cellStyle.Alignment = HorizontalAlignment.Center;
+            cellStyle.VerticalAlignment = VerticalAlignment.Top;
+            cellStyle.WrapText = true;
+            // font
+            cellStyle.SetFont(font);
+            return cellStyle;
+        }
+        private ICellStyle CreateMediumHeadingCellStyle(IWorkbook book, IFont font)
+        {
+            var cellStyle = book.CreateCellStyle();
+            // font
+            cellStyle.SetFont(font);
+            // boreder style
+            cellStyle.BorderTop = BorderStyle.None;
+            cellStyle.BorderRight = BorderStyle.Thin;
+            cellStyle.BorderLeft = BorderStyle.Thin;
+            cellStyle.BorderBottom = BorderStyle.None;
+            // background color
+            cellStyle.FillForegroundColor = IndexedColors.LightTurquoise.Index;
+            cellStyle.FillPattern = FillPattern.SolidForeground;
+            // text alignment
+            cellStyle.Alignment = HorizontalAlignment.Center;
+            cellStyle.VerticalAlignment = VerticalAlignment.Top;
+            cellStyle.WrapText = true;
+            // font
+            cellStyle.SetFont(font);
+            return cellStyle;
+        }
+
+        private ICellStyle CreateLowerHeadingCellStyle(IWorkbook book, IFont font)
+        {
+            var cellStyle = book.CreateCellStyle();
+            // font
+            cellStyle.SetFont(font);
+            // boreder style
+            cellStyle.BorderTop = BorderStyle.None;
+            cellStyle.BorderRight = BorderStyle.Thin;
+            cellStyle.BorderLeft = BorderStyle.Thin;
+            cellStyle.BorderBottom = BorderStyle.Thin;
+            // background color
+            cellStyle.FillForegroundColor = IndexedColors.LightTurquoise.Index;
+            cellStyle.FillPattern = FillPattern.SolidForeground;
+            // text alignment
+            cellStyle.Alignment = HorizontalAlignment.Center;
+            cellStyle.VerticalAlignment = VerticalAlignment.Top;
+            cellStyle.WrapText = true;
+            // font
+            cellStyle.SetFont(font);
+            return cellStyle;
         }
 
         private void WriteCell(ISheet sheet, int columnIndex, int rowIndex, string value)
