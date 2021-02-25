@@ -33,10 +33,6 @@ namespace UsdmConverter.ApplicationCore.Services
             var itemStyle = CreateItemCellStyle(book, font);
 
             var sheet = book.GetSheet(data.Title);
-            sheet.SetColumnWidth(0, 256 * 6);
-            sheet.SetColumnWidth(1, 256 * 10);
-            sheet.SetColumnWidth(2, 256 * 10);
-            sheet.SetColumnWidth(3, 256 * 60);
 
             var rowIndex = 0;
             foreach (var element in data.Requirements)
@@ -112,6 +108,15 @@ namespace UsdmConverter.ApplicationCore.Services
                     }
                 }
             }
+            sheet.AutoSizeColumn(0);
+            sheet.AutoSizeColumn(1);
+            sheet.AutoSizeColumn(2);
+            sheet.SetColumnWidth(3, 256 * 87 - (
+                sheet.GetColumnWidth(0) +
+                sheet.GetColumnWidth(1) +
+                sheet.GetColumnWidth(2)
+            ));
+            sheet.PrintSetup.PaperSize = 9;
             return book;
         }
         private ICellStyle CreateBasicCellStyle(IWorkbook book, IFont font)
