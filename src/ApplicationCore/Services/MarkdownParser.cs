@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Text.RegularExpressions;
+using System;
 using System.Linq;
 using Microsoft.Toolkit.Parsers.Markdown;
 using Microsoft.Toolkit.Parsers.Markdown.Blocks;
@@ -45,14 +46,16 @@ namespace UsdmConverter.ApplicationCore.Services
                                 case 1:
                                     data.Title = text;
                                     break;
-                                case 2:
-                                    // TODO: IDとの分離
+                                case 2:{
+                                    var id = Regex.Match(text, "\\[[-A-Z0-9]{1,}\\]");
                                     data.Requirements.Add(
                                         new UpperRequirement
                                         {
-                                            Summay = text
+                                            ID = id.Value.Substring(1, id.Value.Length - 2),
+                                            Summay = text.Replace(id.Value, string.Empty)
                                         }
                                     );
+                                }
                                     break;
                                 case 3:
                                     if (text.Equals("理由"))
@@ -65,12 +68,12 @@ namespace UsdmConverter.ApplicationCore.Services
                                     }
                                     else
                                     {
+                                        var id = Regex.Match(text, "\\[[-A-Z0-9]{1,}\\]");
                                         data.Requirements.Last().Requirements.Add(
-                                            // TODO: IDとの分離
                                             new LowerRequirement
                                             {
-                                                ID = string.Empty,
-                                                Summay = text,
+                                                ID = id.Value.Substring(1, id.Value.Length - 2),
+                                                Summay = text.Replace(id.Value, string.Empty),
                                             }
                                         );
                                     }

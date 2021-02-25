@@ -33,10 +33,10 @@ namespace UsdmConverter.ApplicationCore.Services
             var itemStyle = CreateItemCellStyle(book, font);
 
             var sheet = book.GetSheet(data.Title);
-            sheet.SetColumnWidth(0, 256 * 12);
-            sheet.SetColumnWidth(1, 256 * 12);
-            sheet.SetColumnWidth(2, 256 * 12);
-            sheet.SetColumnWidth(3, 256 * 90);
+            sheet.SetColumnWidth(0, 256 * 6);
+            sheet.SetColumnWidth(1, 256 * 10);
+            sheet.SetColumnWidth(2, 256 * 10);
+            sheet.SetColumnWidth(3, 256 * 60);
 
             var rowIndex = 0;
             foreach (var element in data.Requirements)
@@ -47,7 +47,7 @@ namespace UsdmConverter.ApplicationCore.Services
                 sheet.AddMergedRegion(new CellRangeAddress(rowIndex, rowIndex, 2, 3));
 
                 WriteStyle(sheet, 0, rowIndex, upperHeadingStyle);
-                WriteStyle(sheet, 1, rowIndex, headingStyle);
+                WriteStyle(sheet, 1, rowIndex, upperHeadingStyle);
                 WriteStyle(sheet, 2, rowIndex, headingStyle);
                 WriteStyle(sheet, 3, rowIndex, headingStyle);
                 rowIndex++;
@@ -73,7 +73,7 @@ namespace UsdmConverter.ApplicationCore.Services
                     WriteCell(sheet, 2, rowIndex, item.ID);
                     WriteCell(sheet, 3, rowIndex, item.Summay);
                     WriteStyle(sheet, 1, rowIndex, upperHeadingStyle);
-                    WriteStyle(sheet, 2, rowIndex, headingStyle);
+                    WriteStyle(sheet, 2, rowIndex, upperHeadingStyle);
                     WriteStyle(sheet, 3, rowIndex, headingStyle);
                     rowIndex++;
                     WriteCell(sheet, 2, rowIndex, "理由");
