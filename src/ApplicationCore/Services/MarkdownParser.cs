@@ -6,6 +6,7 @@ using Microsoft.Toolkit.Parsers.Markdown.Blocks;
 using UsdmConverter.ApplicationCore.Entities;
 using UsdmConverter.ApplicationCore.Exceptions;
 using UsdmConverter.ApplicationCore.Interfaces;
+using UsdmConverter.ApplicationCore.Logic;
 
 namespace UsdmConverter.ApplicationCore.Services
 {
@@ -48,12 +49,12 @@ namespace UsdmConverter.ApplicationCore.Services
                                     break;
                                 case 2:
                                     {
-                                        var id = Regex.Match(text, "\\[[-A-Z0-9]{1,}\\]");
+                                        var info = ParseUtility.DecomposeHeading(text);
                                         data.Requirements.Add(
                                             new UpperRequirement
                                             {
-                                                ID = id.Value.Substring(1, id.Value.Length - 2),
-                                                Summay = text.Replace(id.Value, string.Empty)
+                                                ID = info.id,
+                                                Summary = info.summary
                                             }
                                         );
                                     }
@@ -69,12 +70,12 @@ namespace UsdmConverter.ApplicationCore.Services
                                     }
                                     else
                                     {
-                                        var id = Regex.Match(text, "\\[[-A-Z0-9]{1,}\\]");
+                                        var info = ParseUtility.DecomposeHeading(text);
                                         data.Requirements.Last().Requirements.Add(
                                             new LowerRequirement
                                             {
-                                                ID = id.Value.Substring(1, id.Value.Length - 2),
-                                                Summay = text.Replace(id.Value, string.Empty),
+                                                ID = info.id,
+                                                Summary = info.summary
                                             }
                                         );
                                     }

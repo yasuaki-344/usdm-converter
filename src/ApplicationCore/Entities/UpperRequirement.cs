@@ -8,7 +8,7 @@ namespace UsdmConverter.ApplicationCore.Entities
     public class UpperRequirement
     {
         public string ID { get; set; } = string.Empty;
-        public string Summay { get; set; } = string.Empty;
+        public string Summary { get; set; } = string.Empty;
         public string Reason { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public List<LowerRequirement> Requirements { get; set; } = new List<LowerRequirement>();

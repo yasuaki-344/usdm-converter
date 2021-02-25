@@ -8,7 +8,7 @@ namespace UsdmConverter.ApplicationCore.Entities
     public class LowerRequirement
     {
         public string ID { get; set; } = string.Empty;
-        public string Summay { get; set; } = string.Empty;
+        public string Summary { get; set; } = string.Empty;
         public string Reason { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public List<SpecificationGroup> SpecificationGroups { get; set; } = new List<SpecificationGroup>();

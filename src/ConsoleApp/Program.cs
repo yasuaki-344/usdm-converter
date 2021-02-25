@@ -82,7 +82,7 @@ namespace UsdmConverter.ConsoleApp
                     new UpperRequirement
                     {
                         ID = "REQ1",
-                        Summay = "要求事項１",
+                        Summary = "要求事項１",
                         Reason = "要求事項１の理由",
                         Description = "要求事項１の説明",
                         Requirements = new List<LowerRequirement>()
@@ -90,7 +90,7 @@ namespace UsdmConverter.ConsoleApp
                             new LowerRequirement
                             {
                                 ID = "REQ1-1",
-                                Summay = "要求事項１-1",
+                                Summary = "要求事項１-1",
                                 Reason = "要求事項１-1の理由",
                                 Description = "要求事項１-1の説明",
                                 SpecificationGroups = new List<SpecificationGroup>()
@@ -125,7 +125,7 @@ namespace UsdmConverter.ConsoleApp
                             new LowerRequirement
                             {
                                 ID = "REQ1-2",
-                                Summay = "要求事項１-2",
+                                Summary = "要求事項１-2",
                                 Reason = "要求事項１-2の理由",
                                 Description = "要求事項１-2の説明",
                                 SpecificationGroups = new List<SpecificationGroup>()
@@ -162,7 +162,7 @@ namespace UsdmConverter.ConsoleApp
                     new UpperRequirement
                     {
                         ID = "REQ2",
-                        Summay = "要求事項2",
+                        Summary = "要求事項2",
                         Reason = "要求事項2の理由",
                         Description = "要求事項2の説明",
                         Requirements = new List<LowerRequirement>()
@@ -170,7 +170,7 @@ namespace UsdmConverter.ConsoleApp
                             new LowerRequirement
                             {
                                 ID = "REQ1-1",
-                                Summay = "要求事項１-1",
+                                Summary = "要求事項１-1",
                                 Reason = "要求事項１-1の理由",
                                 Description = "要求事項１-1の説明",
                                 SpecificationGroups = new List<SpecificationGroup>()
@@ -205,7 +205,7 @@ namespace UsdmConverter.ConsoleApp
                             new LowerRequirement
                             {
                                 ID = "REQ1-2",
-                                Summay = "要求事項１-2",
+                                Summary = "要求事項１-2",
                                 Reason = "要求事項１-2の理由",
                                 Description = "要求事項１-2の説明",
                                 SpecificationGroups = new List<SpecificationGroup>()
@@ -242,7 +242,7 @@ namespace UsdmConverter.ConsoleApp
                     new UpperRequirement
                     {
                         ID = "REQ3",
-                        Summay = "要求事項3",
+                        Summary = "要求事項3",
                         Reason = "要求事項3の理由",
                         Description = "要求事項3の説明",
                         Requirements = new List<LowerRequirement>()
@@ -250,7 +250,7 @@ namespace UsdmConverter.ConsoleApp
                             new LowerRequirement
                             {
                                 ID = "REQ1-1",
-                                Summay = "要求事項１-1",
+                                Summary = "要求事項１-1",
                                 Reason = "要求事項１-1の理由",
                                 Description = "要求事項１-1の説明",
                                 SpecificationGroups = new List<SpecificationGroup>()
@@ -285,7 +285,7 @@ namespace UsdmConverter.ConsoleApp
                             new LowerRequirement
                             {
                                 ID = "REQ1-2",
-                                Summay = "要求事項１-2",
+                                Summary = "要求事項１-2",
                                 Reason = "要求事項１-2の理由",
                                 Description = "要求事項１-2の説明",
                                 SpecificationGroups = new List<SpecificationGroup>()

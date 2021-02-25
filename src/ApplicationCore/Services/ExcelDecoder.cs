@@ -34,16 +34,18 @@ namespace UsdmConverter.ApplicationCore.Services
             var rowIndex = 0;
             foreach (var element in data.Requirements)
             {
+                // 上位要求の項目の作成
                 WriteCell(sheet, 0, rowIndex, "要求");
                 WriteCell(sheet, 1, rowIndex, element.ID);
-                WriteCell(sheet, 2, rowIndex, element.Summay);
+                WriteCell(sheet, 2, rowIndex, element.Summary);
                 sheet.AddMergedRegion(new CellRangeAddress(rowIndex, rowIndex, 2, 3));
-
                 WriteStyle(sheet, 0, rowIndex, upperHeadingStyle);
                 WriteStyle(sheet, 1, rowIndex, upperHeadingStyle);
                 WriteStyle(sheet, 2, rowIndex, headingStyle);
                 WriteStyle(sheet, 3, rowIndex, headingStyle);
                 rowIndex++;
+
+                // 上位要求の理由の作成
                 WriteCell(sheet, 1, rowIndex, "理由");
                 WriteCell(sheet, 2, rowIndex, element.Reason);
                 sheet.AddMergedRegion(new CellRangeAddress(rowIndex, rowIndex, 2, 3));
@@ -52,6 +54,8 @@ namespace UsdmConverter.ApplicationCore.Services
                 WriteStyle(sheet, 2, rowIndex, baseStyle);
                 WriteStyle(sheet, 3, rowIndex, baseStyle);
                 rowIndex++;
+
+                // 上位要求の説明の作成
                 WriteCell(sheet, 1, rowIndex, "説明");
                 WriteCell(sheet, 2, rowIndex, element.Description);
                 sheet.AddMergedRegion(new CellRangeAddress(rowIndex, rowIndex, 2, 3));
@@ -60,46 +64,53 @@ namespace UsdmConverter.ApplicationCore.Services
                 WriteStyle(sheet, 2, rowIndex, baseStyle);
                 WriteStyle(sheet, 3, rowIndex, baseStyle);
                 rowIndex++;
+
                 foreach (var item in element.Requirements)
                 {
+                    // 下位要求の項目の作成
                     WriteCell(sheet, 1, rowIndex, "要求");
                     WriteCell(sheet, 2, rowIndex, item.ID);
-                    WriteCell(sheet, 3, rowIndex, item.Summay);
+                    WriteCell(sheet, 3, rowIndex, item.Summary);
                     WriteStyle(sheet, 1, rowIndex, upperHeadingStyle);
                     WriteStyle(sheet, 2, rowIndex, upperHeadingStyle);
                     WriteStyle(sheet, 3, rowIndex, headingStyle);
                     rowIndex++;
+
+                    // 下位要求の理由の作成
                     WriteCell(sheet, 2, rowIndex, "理由");
                     WriteCell(sheet, 3, rowIndex, item.Reason);
                     WriteStyle(sheet, 1, rowIndex, mediumHeadingStyle);
                     WriteStyle(sheet, 2, rowIndex, itemStyle);
                     WriteStyle(sheet, 3, rowIndex, baseStyle);
                     rowIndex++;
+
+                    // 下位要求の説明の作成
                     WriteCell(sheet, 2, rowIndex, "説明");
                     WriteCell(sheet, 3, rowIndex, item.Description);
                     WriteStyle(sheet, 1, rowIndex, lowerHeadingStyle);
                     WriteStyle(sheet, 2, rowIndex, itemStyle);
                     WriteStyle(sheet, 3, rowIndex, baseStyle);
                     rowIndex++;
+
                     foreach (var group in item.SpecificationGroups)
                     {
+                        // 仕様グループの作成
                         WriteCell(sheet, 2, rowIndex, group.Category);
                         WriteStyle(sheet, 1, rowIndex, baseStyle);
                         WriteStyle(sheet, 2, rowIndex, baseStyle);
                         WriteStyle(sheet, 3, rowIndex, baseStyle);
-
                         sheet.AddMergedRegion(new CellRangeAddress(rowIndex, rowIndex, 2, 3));
 
                         rowIndex++;
                         foreach (var spec in group.Specifications)
                         {
+                            // 仕様の記述
                             WriteCell(sheet, 1, rowIndex, spec.IsImplemented.ToString());
                             WriteCell(sheet, 2, rowIndex, spec.ID);
                             WriteCell(sheet, 3, rowIndex, spec.Description);
                             WriteStyle(sheet, 1, rowIndex, baseStyle);
                             WriteStyle(sheet, 2, rowIndex, baseStyle);
                             WriteStyle(sheet, 3, rowIndex, baseStyle);
-
                             rowIndex++;
                         }
                     }
