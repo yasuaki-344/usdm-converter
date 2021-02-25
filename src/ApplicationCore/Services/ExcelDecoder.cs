@@ -21,43 +21,43 @@ namespace UsdmConverter.ApplicationCore.Services
         {
             var book = new XSSFWorkbook();
             book.CreateSheet(data.Title);
-            var style1 = book.CreateCellStyle();
-            style1.BorderTop = BorderStyle.Thin;
-            style1.BorderRight = BorderStyle.Thin;
-            style1.BorderLeft = BorderStyle.Thin;
-            style1.BorderBottom = BorderStyle.Thin;
-            style1.FillForegroundColor = IndexedColors.LightTurquoise.Index;
-            style1.FillPattern = FillPattern.SolidForeground;
+            var headingStyle = book.CreateCellStyle();
+            headingStyle.BorderTop = BorderStyle.Thin;
+            headingStyle.BorderRight = BorderStyle.Thin;
+            headingStyle.BorderLeft = BorderStyle.Thin;
+            headingStyle.BorderBottom = BorderStyle.Thin;
+            headingStyle.FillForegroundColor = IndexedColors.LightTurquoise.Index;
+            headingStyle.FillPattern = FillPattern.SolidForeground;
 
-            var style3 = book.CreateCellStyle();
-            style3.BorderTop = BorderStyle.Thin;
-            style3.BorderRight = BorderStyle.Thin;
-            style3.BorderLeft = BorderStyle.Thin;
-            style3.BorderBottom = BorderStyle.None;
-            style3.FillForegroundColor = IndexedColors.LightTurquoise.Index;
-            style3.FillPattern = FillPattern.SolidForeground;
+            var upperHeadingStyle = book.CreateCellStyle();
+            upperHeadingStyle.BorderTop = BorderStyle.Thin;
+            upperHeadingStyle.BorderRight = BorderStyle.Thin;
+            upperHeadingStyle.BorderLeft = BorderStyle.Thin;
+            upperHeadingStyle.BorderBottom = BorderStyle.None;
+            upperHeadingStyle.FillForegroundColor = IndexedColors.LightTurquoise.Index;
+            upperHeadingStyle.FillPattern = FillPattern.SolidForeground;
 
-            var style4 = book.CreateCellStyle();
-            style4.BorderTop = BorderStyle.None;
-            style4.BorderRight = BorderStyle.Thin;
-            style4.BorderLeft = BorderStyle.Thin;
-            style4.BorderBottom = BorderStyle.None;
-            style4.FillForegroundColor = IndexedColors.LightTurquoise.Index;
-            style4.FillPattern = FillPattern.SolidForeground;
+            var mediumHeadingStyle = book.CreateCellStyle();
+            mediumHeadingStyle.BorderTop = BorderStyle.None;
+            mediumHeadingStyle.BorderRight = BorderStyle.Thin;
+            mediumHeadingStyle.BorderLeft = BorderStyle.Thin;
+            mediumHeadingStyle.BorderBottom = BorderStyle.None;
+            mediumHeadingStyle.FillForegroundColor = IndexedColors.LightTurquoise.Index;
+            mediumHeadingStyle.FillPattern = FillPattern.SolidForeground;
 
-            var style5 = book.CreateCellStyle();
-            style5.BorderTop = BorderStyle.None;
-            style5.BorderRight = BorderStyle.Thin;
-            style5.BorderLeft = BorderStyle.Thin;
-            style5.BorderBottom = BorderStyle.Thin;
-            style5.FillForegroundColor = IndexedColors.LightTurquoise.Index;
-            style5.FillPattern = FillPattern.SolidForeground;
+            var lowerHeadingStyle = book.CreateCellStyle();
+            lowerHeadingStyle.BorderTop = BorderStyle.None;
+            lowerHeadingStyle.BorderRight = BorderStyle.Thin;
+            lowerHeadingStyle.BorderLeft = BorderStyle.Thin;
+            lowerHeadingStyle.BorderBottom = BorderStyle.Thin;
+            lowerHeadingStyle.FillForegroundColor = IndexedColors.LightTurquoise.Index;
+            lowerHeadingStyle.FillPattern = FillPattern.SolidForeground;
 
-            var style2 = book.CreateCellStyle();
-            style2.BorderTop = BorderStyle.Thin;
-            style2.BorderRight = BorderStyle.Thin;
-            style2.BorderLeft = BorderStyle.Thin;
-            style2.BorderBottom = BorderStyle.Thin;
+            var baseStyle = book.CreateCellStyle();
+            baseStyle.BorderTop = BorderStyle.Thin;
+            baseStyle.BorderRight = BorderStyle.Thin;
+            baseStyle.BorderLeft = BorderStyle.Thin;
+            baseStyle.BorderBottom = BorderStyle.Thin;
 
             var sheet = book.GetSheet(data.Title);
             var rowIndex = 0;
@@ -68,54 +68,54 @@ namespace UsdmConverter.ApplicationCore.Services
                 WriteCell(sheet, 2, rowIndex, element.Summay);
                 sheet.AddMergedRegion(new CellRangeAddress(rowIndex, rowIndex, 2, 3));
 
-                WriteStyle(sheet, 0, rowIndex, style3);
-                WriteStyle(sheet, 1, rowIndex, style1);
-                WriteStyle(sheet, 2, rowIndex, style1);
-                WriteStyle(sheet, 3, rowIndex, style1);
+                WriteStyle(sheet, 0, rowIndex, upperHeadingStyle);
+                WriteStyle(sheet, 1, rowIndex, headingStyle);
+                WriteStyle(sheet, 2, rowIndex, headingStyle);
+                WriteStyle(sheet, 3, rowIndex, headingStyle);
                 rowIndex++;
                 WriteCell(sheet, 1, rowIndex, "理由");
                 WriteCell(sheet, 2, rowIndex, element.Reason);
                 sheet.AddMergedRegion(new CellRangeAddress(rowIndex, rowIndex, 2, 3));
-                WriteStyle(sheet, 0, rowIndex, style4);
-                WriteStyle(sheet, 1, rowIndex, style2);
-                WriteStyle(sheet, 2, rowIndex, style2);
-                WriteStyle(sheet, 3, rowIndex, style2);
+                WriteStyle(sheet, 0, rowIndex, mediumHeadingStyle);
+                WriteStyle(sheet, 1, rowIndex, baseStyle);
+                WriteStyle(sheet, 2, rowIndex, baseStyle);
+                WriteStyle(sheet, 3, rowIndex, baseStyle);
                 rowIndex++;
                 WriteCell(sheet, 1, rowIndex, "説明");
                 WriteCell(sheet, 2, rowIndex, element.Description);
                 sheet.AddMergedRegion(new CellRangeAddress(rowIndex, rowIndex, 2, 3));
-                WriteStyle(sheet, 0, rowIndex, style5);
-                WriteStyle(sheet, 1, rowIndex, style2);
-                WriteStyle(sheet, 2, rowIndex, style2);
-                WriteStyle(sheet, 3, rowIndex, style2);
+                WriteStyle(sheet, 0, rowIndex, lowerHeadingStyle);
+                WriteStyle(sheet, 1, rowIndex, baseStyle);
+                WriteStyle(sheet, 2, rowIndex, baseStyle);
+                WriteStyle(sheet, 3, rowIndex, baseStyle);
                 rowIndex++;
                 foreach (var item in element.Requirements)
                 {
                     WriteCell(sheet, 1, rowIndex, "要求");
                     WriteCell(sheet, 2, rowIndex, item.ID);
                     WriteCell(sheet, 3, rowIndex, item.Summay);
-                    WriteStyle(sheet, 1, rowIndex, style3);
-                    WriteStyle(sheet, 2, rowIndex, style1);
-                    WriteStyle(sheet, 3, rowIndex, style1);
+                    WriteStyle(sheet, 1, rowIndex, upperHeadingStyle);
+                    WriteStyle(sheet, 2, rowIndex, headingStyle);
+                    WriteStyle(sheet, 3, rowIndex, headingStyle);
                     rowIndex++;
                     WriteCell(sheet, 2, rowIndex, "理由");
                     WriteCell(sheet, 3, rowIndex, item.Reason);
-                    WriteStyle(sheet, 1, rowIndex, style4);
-                    WriteStyle(sheet, 2, rowIndex, style2);
-                    WriteStyle(sheet, 3, rowIndex, style2);
+                    WriteStyle(sheet, 1, rowIndex, mediumHeadingStyle);
+                    WriteStyle(sheet, 2, rowIndex, baseStyle);
+                    WriteStyle(sheet, 3, rowIndex, baseStyle);
                     rowIndex++;
                     WriteCell(sheet, 2, rowIndex, "説明");
                     WriteCell(sheet, 3, rowIndex, item.Description);
-                    WriteStyle(sheet, 1, rowIndex, style5);
-                    WriteStyle(sheet, 2, rowIndex, style2);
-                    WriteStyle(sheet, 3, rowIndex, style2);
+                    WriteStyle(sheet, 1, rowIndex, lowerHeadingStyle);
+                    WriteStyle(sheet, 2, rowIndex, baseStyle);
+                    WriteStyle(sheet, 3, rowIndex, baseStyle);
                     rowIndex++;
                     foreach (var group in item.SpecificationGroups)
                     {
                         WriteCell(sheet, 2, rowIndex, group.Category);
-                        WriteStyle(sheet, 1, rowIndex, style2);
-                        WriteStyle(sheet, 2, rowIndex, style2);
-                        WriteStyle(sheet, 3, rowIndex, style2);
+                        WriteStyle(sheet, 1, rowIndex, baseStyle);
+                        WriteStyle(sheet, 2, rowIndex, baseStyle);
+                        WriteStyle(sheet, 3, rowIndex, baseStyle);
 
                         sheet.AddMergedRegion(new CellRangeAddress(rowIndex, rowIndex, 2, 3));
 
@@ -125,9 +125,9 @@ namespace UsdmConverter.ApplicationCore.Services
                             WriteCell(sheet, 1, rowIndex, spec.IsImplemented.ToString());
                             WriteCell(sheet, 2, rowIndex, spec.ID);
                             WriteCell(sheet, 3, rowIndex, spec.Description);
-                            WriteStyle(sheet, 1, rowIndex, style2);
-                            WriteStyle(sheet, 2, rowIndex, style2);
-                            WriteStyle(sheet, 3, rowIndex, style2);
+                            WriteStyle(sheet, 1, rowIndex, baseStyle);
+                            WriteStyle(sheet, 2, rowIndex, baseStyle);
+                            WriteStyle(sheet, 3, rowIndex, baseStyle);
 
                             rowIndex++;
                         }
