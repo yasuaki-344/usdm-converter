@@ -142,6 +142,7 @@ namespace UsdmConverter.ApplicationCore.Services
                     data.Requirements.Last().Requirements.Last().SpecificationGroups.Add(
                         new SpecificationGroup
                         {
+
                             Category = element.ToString() ?? string.Empty
                         }
                     );
@@ -169,14 +170,13 @@ namespace UsdmConverter.ApplicationCore.Services
                 case UsdmScope.LowerRequiremetDescription:
                     data.Requirements.Last().Requirements.Last().Description += "\n" + element.ToString() ?? string.Empty;
                     break;
-                // case "Specification":
-                //     data.Requirements.Last().Requirements.Last().SpecificationGroups.Last().Specifications.Add(
-                //         new Specification
-                //         {
-                //             Description = element.ToString() ?? string.Empty
-                //         }
-                //     );
-                //     break;
+                case UsdmScope.Specification:
+                    var listBlock = element as ListBlock;
+
+                    data.Requirements.Last().Requirements.Last().SpecificationGroups.Last().Specifications.Add(
+                        ParseUtility.DecomposeSpecification(listBlock)
+                    );
+                    break;
                 default:
                     Console.WriteLine($"Type: {element.Type}");
                     Console.WriteLine(element.ToString());

@@ -1,5 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using Microsoft.Toolkit.Parsers.Markdown.Blocks;
+using UsdmConverter.ApplicationCore.Entities;
+using Microsoft.Toolkit.Parsers.Markdown.Inlines;
 
 namespace UsdmConverter.ApplicationCore.Logic
 {
@@ -15,5 +17,28 @@ namespace UsdmConverter.ApplicationCore.Logic
             return string.IsNullOrEmpty(summay) ? (id, string.Empty) : (id, summay);
         }
 
+        static public Specification DecomposeSpecification(ListBlock listBlock)
+        {
+            foreach (var item in listBlock.Items)
+            {
+                foreach (var item2 in item.Blocks)
+                {
+                    var paragraph = item2 as ParagraphBlock;
+                    if (paragraph != null)
+                    {
+                        var item3 = (MarkdownLinkInline)paragraph.Inlines[0];
+                        var spec = new Specification
+                        {
+                            IsImplemented = item3.Inlines[0].ToString().Equals("x"),
+                            ID = item3.ReferenceId,
+                            Description = paragraph.Inlines[1].ToString()
+                        };
+                        return spec;
+                    }
+                }
+            }
+
+            return new Specification();
+        }
     }
 }
