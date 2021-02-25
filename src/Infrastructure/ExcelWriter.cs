@@ -26,6 +26,11 @@ namespace UsdmConverter.Infrastructure
         /// <param name="filePath">Output excel file path</param>
         public void Write(IWorkbook book, string filePath)
         {
+            if (string.IsNullOrEmpty(filePath))
+            {
+                throw new ArgumentNullException(nameof(filePath));
+            }
+
             var extension = Path.GetExtension(filePath);
             if (extension != ".xlsx")
             {
