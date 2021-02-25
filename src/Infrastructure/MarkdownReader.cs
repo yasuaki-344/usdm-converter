@@ -21,6 +21,16 @@ namespace UsdmConverter.Infrastructure
 
         public string ReadToEnd(string filePath)
         {
+            if (string.IsNullOrEmpty(filePath))
+            {
+                throw new ArgumentNullException(nameof(filePath));
+            }
+
+            if (!File.Exists(filePath))
+            {
+                throw new FileNotFoundException($"{filePath} does not exist");
+            }
+
             try
             {
                 using (var sr = new StreamReader(filePath))
