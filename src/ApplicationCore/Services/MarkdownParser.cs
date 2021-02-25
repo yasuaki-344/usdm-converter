@@ -28,7 +28,7 @@ namespace UsdmConverter.ApplicationCore.Services
         public RequirementSpecification Parse(string content)
         {
             _document.Parse(content);
-            var status = string.Empty;
+            var status = UsdmScope.None;
 
             var data = new RequirementSpecification();
             foreach (var element in _document.Blocks)
@@ -61,11 +61,11 @@ namespace UsdmConverter.ApplicationCore.Services
                                 case 3:
                                     if (text.Equals("理由"))
                                     {
-                                        status = "UpperRequiremetReason";
+                                        status = UsdmScope.UpperRequiremetReason;
                                     }
                                     else if (text.Equals("説明"))
                                     {
-                                        status = "UpperRequiremetDescription";
+                                        status = UsdmScope.UpperRequiremetDescription;
                                     }
                                     else
                                     {
@@ -82,22 +82,22 @@ namespace UsdmConverter.ApplicationCore.Services
                                 case 4:
                                     if (text.Equals("理由"))
                                     {
-                                        status = "LowerRequiremetReason";
+                                        status = UsdmScope.LowerRequiremetReason;
                                     }
                                     else if (text.Equals("説明"))
                                     {
-                                        status = "LowerRequiremetDescription";
+                                        status = UsdmScope.LowerRequiremetDescription;
                                     }
                                     else if (text.Equals("仕様"))
                                     {
-                                        status = "Specification";
+                                        status = UsdmScope.Specification;
                                     }
                                     break;
                                 default:
                                     Console.WriteLine($"Text: {text}");
                                     Console.WriteLine($"Level: {headerLevel}");
                                     Console.WriteLine(element.ToString());
-                                    status = string.Empty;
+                                    status = UsdmScope.None;
                                     break;
                             }
                         }
@@ -105,20 +105,20 @@ namespace UsdmConverter.ApplicationCore.Services
                     case MarkdownBlockType.Paragraph:
                         switch (status)
                         {
-                            case "UpperRequiremetReason":
+                            case UsdmScope.UpperRequiremetReason:
                                 data.Requirements.Last().Reason += element.ToString() ?? string.Empty;
                                 break;
-                            case "UpperRequiremetDescription":
+                            case UsdmScope.UpperRequiremetDescription:
                                 data.Requirements.Last().Description += element.ToString() ?? string.Empty;
                                 break;
 
-                            case "LowerRequiremetReason":
+                            case UsdmScope.LowerRequiremetReason:
                                 data.Requirements.Last().Requirements.Last().Reason += element.ToString() ?? string.Empty;
                                 break;
-                            case "LowerRequiremetDescription":
+                            case UsdmScope.LowerRequiremetDescription:
                                 data.Requirements.Last().Requirements.Last().Description += element.ToString() ?? string.Empty;
                                 break;
-                            case "Specification":
+                            case UsdmScope.Specification:
                                 data.Requirements.Last().Requirements.Last().SpecificationGroups.Add(
                                     new SpecificationGroup
                                     {
@@ -135,16 +135,16 @@ namespace UsdmConverter.ApplicationCore.Services
                     case MarkdownBlockType.List:
                         switch (status)
                         {
-                            case "UpperRequiremetReason":
+                            case UsdmScope.UpperRequiremetReason:
                                 data.Requirements.Last().Reason += "\n" + element.ToString() ?? string.Empty;
                                 break;
-                            case "UpperRequiremetDescription":
+                            case UsdmScope.UpperRequiremetDescription:
                                 data.Requirements.Last().Description += "\n" + element.ToString() ?? string.Empty;
                                 break;
-                            case "LowerRequiremetReason":
+                            case UsdmScope.LowerRequiremetReason:
                                 data.Requirements.Last().Requirements.Last().Reason += "\n" + element.ToString() ?? string.Empty;
                                 break;
-                            case "LowerRequiremetDescription":
+                            case UsdmScope.LowerRequiremetDescription:
                                 data.Requirements.Last().Requirements.Last().Description += "\n" + element.ToString() ?? string.Empty;
                                 break;
                             // case "Specification":

@@ -8,5 +8,6 @@ namespace UsdmConverter.ApplicationCore.Entities
         UpperRequiremetDescription,
         LowerRequiremetReason,
         LowerRequiremetDescription,
+        Specification,
     }
 }
