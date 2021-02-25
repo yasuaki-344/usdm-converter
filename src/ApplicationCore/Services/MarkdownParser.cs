@@ -67,7 +67,7 @@ namespace UsdmConverter.ApplicationCore.Services
                         break;
                     case 2:
                         {
-                            var info = ParseUtility.DecomposeHeading(text);
+                            var info = ParseUtility.DecomposeHeading(header);
                             data.Requirements.Add(
                                 new UpperRequirement
                                 {
@@ -88,7 +88,7 @@ namespace UsdmConverter.ApplicationCore.Services
                         }
                         else
                         {
-                            var info = ParseUtility.DecomposeHeading(text);
+                            var info = ParseUtility.DecomposeHeading(header);
                             data.Requirements.Last().Requirements.Add(
                                 new LowerRequirement
                                 {
