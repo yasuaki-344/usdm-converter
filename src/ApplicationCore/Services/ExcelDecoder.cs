@@ -1,9 +1,6 @@
-﻿using NPOI.HSSF.UserModel;
-using NPOI.HSSF.Util;
-using NPOI.SS.UserModel;
+﻿using NPOI.SS.UserModel;
 using NPOI.SS.Util;
 using NPOI.XSSF.UserModel;
-using NPOI.XSSF.Util;
 using UsdmConverter.ApplicationCore.Entities;
 using UsdmConverter.ApplicationCore.Interfaces;
 namespace UsdmConverter.ApplicationCore.Services
@@ -130,8 +127,6 @@ namespace UsdmConverter.ApplicationCore.Services
             cellStyle.BorderLeft = BorderStyle.Thin;
             cellStyle.BorderBottom = BorderStyle.Thin;
             // text alignment
-            cellStyle.Alignment = HorizontalAlignment.Left;
-            cellStyle.VerticalAlignment = VerticalAlignment.Top;
             cellStyle.WrapText = true;
             return cellStyle;
         }
