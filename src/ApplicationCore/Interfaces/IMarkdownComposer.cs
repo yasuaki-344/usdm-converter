@@ -1,4 +1,4 @@
-using UsdmConverter.ApplicationCore.Entities;
+﻿using UsdmConverter.ApplicationCore.Entities;
 
 namespace UsdmConverter.ApplicationCore.Interfaces
 {

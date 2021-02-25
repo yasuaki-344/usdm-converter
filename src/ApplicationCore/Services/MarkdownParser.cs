@@ -1,6 +1,6 @@
-﻿using System.Text.RegularExpressions;
-using System;
+﻿using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Microsoft.Toolkit.Parsers.Markdown;
 using Microsoft.Toolkit.Parsers.Markdown.Blocks;
 using UsdmConverter.ApplicationCore.Entities;
@@ -46,16 +46,17 @@ namespace UsdmConverter.ApplicationCore.Services
                                 case 1:
                                     data.Title = text;
                                     break;
-                                case 2:{
-                                    var id = Regex.Match(text, "\\[[-A-Z0-9]{1,}\\]");
-                                    data.Requirements.Add(
-                                        new UpperRequirement
-                                        {
-                                            ID = id.Value.Substring(1, id.Value.Length - 2),
-                                            Summay = text.Replace(id.Value, string.Empty)
-                                        }
-                                    );
-                                }
+                                case 2:
+                                    {
+                                        var id = Regex.Match(text, "\\[[-A-Z0-9]{1,}\\]");
+                                        data.Requirements.Add(
+                                            new UpperRequirement
+                                            {
+                                                ID = id.Value.Substring(1, id.Value.Length - 2),
+                                                Summay = text.Replace(id.Value, string.Empty)
+                                            }
+                                        );
+                                    }
                                     break;
                                 case 3:
                                     if (text.Equals("理由"))

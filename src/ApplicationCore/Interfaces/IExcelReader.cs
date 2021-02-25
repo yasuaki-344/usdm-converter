@@ -1,4 +1,4 @@
-namespace UsdmConverter.ApplicationCore.Interfaces
+﻿namespace UsdmConverter.ApplicationCore.Interfaces
 {
     public interface IExcelReader
     {
