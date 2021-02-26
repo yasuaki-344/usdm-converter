@@ -105,7 +105,7 @@ namespace UsdmConverter.ApplicationCore.Services
                         foreach (var spec in group.Specifications)
                         {
                             // 仕様の記述
-                            WriteCell(sheet, 1, rowIndex, spec.IsImplemented.ToString());
+                            WriteCell(sheet, 1, rowIndex, spec.IsImplemented ? "■" : "□");
                             WriteCell(sheet, 2, rowIndex, spec.ID);
                             WriteCell(sheet, 3, rowIndex, spec.Description);
                             WriteStyle(sheet, 1, rowIndex, baseStyle);
