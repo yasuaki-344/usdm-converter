@@ -1,7 +1,8 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
 using Microsoft.Toolkit.Parsers.Markdown.Blocks;
-using UsdmConverter.ApplicationCore.Entities;
 using Microsoft.Toolkit.Parsers.Markdown.Inlines;
+using UsdmConverter.ApplicationCore.Entities;
 
 namespace UsdmConverter.ApplicationCore.Logic
 {
@@ -39,6 +40,11 @@ namespace UsdmConverter.ApplicationCore.Logic
             }
 
             return new Specification();
+        }
+
+        static private Specification DecomposeSpecification(ListItemBlock item)
+        {
+            throw new NotImplementedException();
         }
     }
 }
