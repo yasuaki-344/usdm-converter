@@ -172,10 +172,15 @@ namespace UsdmConverter.ApplicationCore.Services
                     break;
                 case UsdmScope.Specification:
                     var listBlock = element as ListBlock;
-
-                    data.Requirements.Last().Requirements.Last().SpecificationGroups.Last().Specifications.Add(
-                        ParseUtility.DecomposeSpecification(listBlock)
-                    );
+                    if (listBlock != null)
+                    {
+                        data.Requirements.Last()
+                            .Requirements.Last()
+                            .SpecificationGroups.Last()
+                            .Specifications.AddRange(
+                            ParseUtility.DecomposeSpecification(listBlock)
+                        );
+                    }
                     break;
                 default:
                     Console.WriteLine($"Type: {element.Type}");

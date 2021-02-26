@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.Toolkit.Parsers.Markdown.Blocks;
 using Microsoft.Toolkit.Parsers.Markdown.Inlines;
@@ -18,33 +20,37 @@ namespace UsdmConverter.ApplicationCore.Logic
             return string.IsNullOrEmpty(summay) ? (id, string.Empty) : (id, summay);
         }
 
-        static public Specification DecomposeSpecification(ListBlock listBlock)
+        static public List<Specification> DecomposeSpecification(ListBlock listBlock) =>
+            listBlock.Items
+                .Select(x => DecomposeListItemBlock(x))
+                .ToList();
+
+        static private Specification DecomposeListItemBlock(ListItemBlock item)
         {
-            foreach (var item in listBlock.Items)
+            foreach (var block in item.Blocks)
             {
-                foreach (var item2 in item.Blocks)
+                var paragraph = block as ParagraphBlock;
+                if (paragraph != null)
                 {
-                    var paragraph = item2 as ParagraphBlock;
-                    if (paragraph != null)
+                    var link = paragraph.Inlines[0] as MarkdownLinkInline;
+                    if (link != null)
                     {
-                        var item3 = (MarkdownLinkInline)paragraph.Inlines[0];
-                        var spec = new Specification
+                        var isImplemented = link.Inlines[0].ToString()?.Equals("x");
+                        var id = link.ReferenceId;
+                        var description = paragraph.Inlines[1].ToString();
+                        if (isImplemented != null && id != null && description != null)
                         {
-                            IsImplemented = item3.Inlines[0].ToString().Equals("x"),
-                            ID = item3.ReferenceId,
-                            Description = paragraph.Inlines[1].ToString()
-                        };
-                        return spec;
+                            return new Specification
+                            {
+                                IsImplemented = isImplemented ?? false,
+                                ID = id,
+                                Description = description
+                            };
+                        }
                     }
                 }
             }
-
             return new Specification();
-        }
-
-        static private Specification DecomposeSpecification(ListItemBlock item)
-        {
-            throw new NotImplementedException();
         }
     }
 }

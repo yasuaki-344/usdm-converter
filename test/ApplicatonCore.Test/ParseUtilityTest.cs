@@ -49,9 +49,9 @@ namespace UsdmConverter.ApplicatonCore.Test
             {
                 var actual = ParseUtility.DecomposeSpecification(block);
 
-                Assert.True(actual.IsImplemented);
-                Assert.Equal(expectId, actual.ID);
-                Assert.Equal(expectDescription, actual.Description);
+                Assert.True(actual[0].IsImplemented);
+                Assert.Equal(expectId, actual[0].ID);
+                Assert.Equal(expectDescription, actual[0].Description);
             }
             else
             {
