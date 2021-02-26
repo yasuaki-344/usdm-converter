@@ -10,6 +10,11 @@ namespace UsdmConverter.ApplicationCore.Logic
 {
     static public class ParseUtility
     {
+        /// <summary>
+        /// Extracts id and summary string from the given HeaderBlock
+        /// </summary>
+        /// <param name="header">markdown header block</param>
+        /// <returns>Tuple of id and summary string</returns>
         static public (string id, string summary) DecomposeHeading(HeaderBlock header)
         {
             var text = header.ToString().Trim();
@@ -20,11 +25,21 @@ namespace UsdmConverter.ApplicationCore.Logic
             return string.IsNullOrEmpty(summay) ? (id, string.Empty) : (id, summay);
         }
 
+        /// <summary>
+        /// Extracts USDM specification list from given ListBlock.
+        /// </summary>
+        /// <param name="listBlock">Markdown list block</param>
+        /// <returns>The list of USDM specification information</returns>
         static public List<Specification> DecomposeSpecification(ListBlock listBlock) =>
             listBlock.Items
                 .Select(x => DecomposeListItemBlock(x))
                 .ToList();
 
+        /// <summary>
+        /// Extracts USDM specification from given ListItemBlock.
+        /// </summary>
+        /// <param name="listBlock">Markdown list item block</param>
+        /// <returns>USDM specification information</returns>
         static private Specification DecomposeListItemBlock(ListItemBlock item)
         {
             foreach (var block in item.Blocks)
