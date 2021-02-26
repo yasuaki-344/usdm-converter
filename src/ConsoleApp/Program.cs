@@ -1,19 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net.Mime;
-using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using ConsoleAppFramework;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using UsdmConverter.ApplicationCore.Entities;
 using UsdmConverter.ApplicationCore.Interfaces;
 using UsdmConverter.ApplicationCore.Services;
 using UsdmConverter.Infrastructure;
+
 namespace UsdmConverter.ConsoleApp
 {
     class Program
