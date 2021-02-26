@@ -26,10 +26,10 @@ namespace UsdmConverter.ApplicatonCore.Test
                         {
                             new LowerRequirement
                             {
-                                ID = "REQ01",
-                                Summary = "requirement1",
-                                Reason = "reason1",
-                                Description = "description1",
+                                ID = "REQ01-01",
+                                Summary = "requirement1-1",
+                                Reason = "reason1-1",
+                                Description = "description1-1",
                                 SpecificationGroups = new List<SpecificationGroup>()
                                 {
                                     new SpecificationGroup
@@ -68,7 +68,20 @@ namespace UsdmConverter.ApplicatonCore.Test
             Assert.Equal("理由", sheet.GetRow(1).GetCell(1).StringCellValue);
             Assert.Equal("reason1", sheet.GetRow(1).GetCell(2).StringCellValue);
             Assert.Equal("説明", sheet.GetRow(2).GetCell(1).StringCellValue);
-            Assert.Equal("description1", sheet.GetRow(2).GetCell(2).StringCellValue);
+            Assert.Equal("要求", sheet.GetRow(3).GetCell(1).StringCellValue);
+            Assert.Equal("REQ01-01", sheet.GetRow(3).GetCell(2).StringCellValue);
+            Assert.Equal("requirement1-1", sheet.GetRow(3).GetCell(3).StringCellValue);
+            Assert.Equal("理由", sheet.GetRow(4).GetCell(2).StringCellValue);
+            Assert.Equal("reason1-1", sheet.GetRow(4).GetCell(3).StringCellValue);
+            Assert.Equal("説明", sheet.GetRow(5).GetCell(2).StringCellValue);
+            Assert.Equal("description1-1", sheet.GetRow(5).GetCell(3).StringCellValue);
+            Assert.Equal("group", sheet.GetRow(6).GetCell(2).StringCellValue);
+            Assert.Equal("□", sheet.GetRow(7).GetCell(1).StringCellValue);
+            Assert.Equal("SPC01-01-01", sheet.GetRow(7).GetCell(2).StringCellValue);
+            Assert.Equal("description1", sheet.GetRow(7).GetCell(3).StringCellValue);
+            Assert.Equal("■", sheet.GetRow(8).GetCell(1).StringCellValue);
+            Assert.Equal("SPC01-01-02", sheet.GetRow(8).GetCell(2).StringCellValue);
+            Assert.Equal("description2", sheet.GetRow(8).GetCell(3).StringCellValue);
         }
     }
 }
