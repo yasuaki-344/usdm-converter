@@ -60,6 +60,15 @@ namespace UsdmConverter.ApplicatonCore.Test
 
             var target = new ExcelDecoder();
             var book = target.Decode(data);
+
+            var sheet = book.GetSheet("title");
+            Assert.Equal("要求", sheet.GetRow(0).GetCell(0).StringCellValue);
+            Assert.Equal("REQ01", sheet.GetRow(0).GetCell(1).StringCellValue);
+            Assert.Equal("requirement1", sheet.GetRow(0).GetCell(2).StringCellValue);
+            Assert.Equal("理由", sheet.GetRow(1).GetCell(1).StringCellValue);
+            Assert.Equal("reason1", sheet.GetRow(1).GetCell(2).StringCellValue);
+            Assert.Equal("説明", sheet.GetRow(2).GetCell(1).StringCellValue);
+            Assert.Equal("description1", sheet.GetRow(2).GetCell(2).StringCellValue);
         }
     }
 }
