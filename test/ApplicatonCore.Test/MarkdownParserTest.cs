@@ -56,7 +56,7 @@ description1-1
             var target = new MarkdownParser();
             var actual = target.Parse(markdown);
 
-            Assert.Equal(1, actual.Requirements.Count);
+            Assert.NotEmpty(actual.Requirements);
             var requirement = actual.Requirements[0];
             Assert.Equal("REQ01", requirement.ID);
             Assert.Equal("Requirement1", requirement.Summary);
