@@ -47,7 +47,6 @@ namespace UsdmConverter.ConsoleApp
         /// <param name="markdownReader"></param>
         /// <param name="markdownParser"></param>
         /// <param name="excelDecoder"></param>
-        /// <param name="excelWriter"></param>
         public ApplicationLogic(
             ILogger<ApplicationLogic> logger,
             IExcelWriter excelWriter,

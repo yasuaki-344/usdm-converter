@@ -2,7 +2,6 @@
 using UsdmConverter.ApplicationCore.Entities;
 using UsdmConverter.ApplicationCore.Services;
 using Xunit;
-using Xunit.Sdk;
 
 namespace UsdmConverter.ApplicatonCore.Test
 {

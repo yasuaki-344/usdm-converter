@@ -1,8 +1,6 @@
 ﻿using System.Linq;
 using Microsoft.Toolkit.Parsers.Markdown;
 using Microsoft.Toolkit.Parsers.Markdown.Blocks;
-using Microsoft.Toolkit.Parsers.Markdown.Inlines;
-using UsdmConverter.ApplicationCore.Entities;
 using UsdmConverter.ApplicationCore.Logic;
 using Xunit;
 using Xunit.Sdk;
