@@ -19,7 +19,10 @@ namespace UsdmConverter.ApplicationCore.Services
 
         public string Compose(RequirementSpecification data)
         {
-            throw new System.NotImplementedException();
+            var markdown = string.Empty;
+            markdown += $"# {data.Title}\n";
+
+            return markdown;
         }
     }
 }
