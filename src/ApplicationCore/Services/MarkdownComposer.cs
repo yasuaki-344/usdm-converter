@@ -26,6 +26,12 @@ namespace UsdmConverter.ApplicationCore.Services
                 markdown += $"\n## [{upperRequirement.ID}]{upperRequirement.Summary}\n";
                 markdown += $"\n### 理由\n\n{upperRequirement.Reason}\n";
                 markdown += $"\n### 説明\n\n{upperRequirement.Description}\n";
+                foreach (var lowerRequirement in upperRequirement.Requirements)
+                {
+                    markdown += $"\n### [{lowerRequirement.ID}]{lowerRequirement.Summary}\n";
+                    markdown += $"\n#### 理由\n\n{lowerRequirement.Reason}\n";
+                    markdown += $"\n#### 説明\n\n{lowerRequirement.Description}\n";
+                }
             }
             return markdown;
         }

@@ -26,6 +26,16 @@ reason1
 ### 説明
 
 description1
+
+### [REQ01-01]requirement1-1
+
+#### 理由
+
+reason1-1
+
+#### 説明
+
+description1-1
 ";
             var data = new RequirementSpecification
             {
