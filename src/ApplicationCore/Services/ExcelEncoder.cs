@@ -2,8 +2,10 @@
 //
 // This software is released under the MIT License.
 // http://opensource.org/licenses/mit-license.php
+using System.Linq;
 using NPOI.SS.UserModel;
 using UsdmConverter.ApplicationCore.Entities;
+using UsdmConverter.ApplicationCore.Exceptions;
 using UsdmConverter.ApplicationCore.Interfaces;
 
 namespace UsdmConverter.ApplicationCore.Services
@@ -28,24 +30,95 @@ namespace UsdmConverter.ApplicationCore.Services
             var row = sheet.GetRow(rowIndex);
             while (row != null)
             {
-                if (sheet.GetRow(rowIndex).GetCell(0).StringCellValue.Equals("要求"))
+                var cell = row.GetCell(0);
+                if (cell != null)
                 {
-                    var id = sheet.GetRow(rowIndex).GetCell(1).StringCellValue;
-                    var summary = sheet.GetRow(rowIndex).GetCell(2).StringCellValue;
-                    rowIndex++;
-                    var reason = sheet.GetRow(rowIndex).GetCell(2).StringCellValue;
-                    rowIndex++;
-                    var description = sheet.GetRow(rowIndex).GetCell(2).StringCellValue;
-                    result.Requirements.Add(new UpperRequirement
+                    var label = cell.StringCellValue;
+                    if (label.Equals("要求"))
                     {
-                        ID = id,
-                        Summary = summary,
-                        Reason = reason,
-                        Description = description,
-                    });
+                        var id = row.GetCell(1).StringCellValue;
+                        var summary = row.GetCell(2).StringCellValue;
+
+                        row = sheet.GetRow(++rowIndex);
+                        var reason = row.GetCell(2).StringCellValue;
+
+                        row = sheet.GetRow(++rowIndex);
+                        var description = row.GetCell(2).StringCellValue;
+                        result.Requirements.Add(new UpperRequirement
+                        {
+                            ID = id,
+                            Summary = summary,
+                            Reason = reason,
+                            Description = description,
+                        });
+                    }
+                    else
+                    {
+                        throw new UsdmFormatException($"Unknown label: {label}");
+                    }
                 }
-                rowIndex++;
-                row = sheet.GetRow(rowIndex);
+                else
+                {
+                    cell = row.GetCell(1);
+                    if (cell != null)
+                    {
+                        var label = cell.StringCellValue;
+                        if (label.Equals("要求"))
+                        {
+                            var id = row.GetCell(2).StringCellValue;
+                            var summary = row.GetCell(3).StringCellValue;
+
+                            row = sheet.GetRow(++rowIndex);
+                            var reason = row.GetCell(3).StringCellValue;
+
+                            row = sheet.GetRow(++rowIndex);
+                            var description = row.GetCell(3).StringCellValue;
+
+                            result.Requirements.Last()
+                                .Requirements.Add(new LowerRequirement
+                                {
+                                    ID = id,
+                                    Summary = summary,
+                                    Reason = reason,
+                                    Description = description,
+                                });
+                        }
+                        else if (label.Equals(string.Empty))
+                        {
+                            var category = row.GetCell(2).StringCellValue;
+                            result.Requirements.Last()
+                                .Requirements.Last()
+                                .SpecificationGroups.Add(
+                                    new SpecificationGroup
+                                    {
+                                        Category = category
+                                    }
+                                );
+                        }
+                        else if (label.Equals("■") || label.Equals("□"))
+                        {
+                            var isImplemented = label.Equals("■");
+                            var id = row.GetCell(2).StringCellValue;
+                            var description = row.GetCell(3).StringCellValue;
+                            result.Requirements.Last()
+                                .Requirements.Last()
+                                .SpecificationGroups.Last()
+                                .Specifications.Add(
+                                    new Specification
+                                    {
+                                        IsImplemented = isImplemented,
+                                        ID = id,
+                                        Description = description
+                                    }
+                                );
+                        }
+                        else
+                        {
+                            throw new UsdmFormatException($"Unknown sublabel: {label}");
+                        }
+                    }
+                }
+                row = sheet.GetRow(++rowIndex);
             }
 
             return result;
