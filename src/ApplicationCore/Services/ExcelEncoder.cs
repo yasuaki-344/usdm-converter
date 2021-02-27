@@ -19,7 +19,36 @@ namespace UsdmConverter.ApplicationCore.Services
 
         public RequirementSpecification Encode(IWorkbook book)
         {
-            throw new System.NotImplementedException();
+            var result = new RequirementSpecification();
+
+            var sheet = book.GetSheetAt(0);
+            result.Title = sheet.SheetName;
+
+            var rowIndex = 0;
+            var row = sheet.GetRow(rowIndex);
+            while (row != null)
+            {
+                if (sheet.GetRow(rowIndex).GetCell(0).StringCellValue.Equals("要求"))
+                {
+                    var id = sheet.GetRow(rowIndex).GetCell(1).StringCellValue;
+                    var summary = sheet.GetRow(rowIndex).GetCell(2).StringCellValue;
+                    rowIndex++;
+                    var reason = sheet.GetRow(rowIndex).GetCell(2).StringCellValue;
+                    rowIndex++;
+                    var description = sheet.GetRow(rowIndex).GetCell(2).StringCellValue;
+                    result.Requirements.Add(new UpperRequirement
+                    {
+                        ID = id,
+                        Summary = summary,
+                        Reason = reason,
+                        Description = description,
+                    });
+                }
+                rowIndex++;
+                row = sheet.GetRow(rowIndex);
+            }
+
+            return result;
         }
     }
 }
