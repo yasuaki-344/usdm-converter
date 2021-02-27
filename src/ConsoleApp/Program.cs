@@ -4,6 +4,7 @@
 // http://opensource.org/licenses/mit-license.php
 
 using System;
+using System.IO;
 using System.Threading.Tasks;
 using ConsoleAppFramework;
 using Microsoft.Extensions.Configuration;
@@ -27,10 +28,13 @@ namespace UsdmConverter.ConsoleApp
                 })
                 .ConfigureServices((context, services) =>
                 {
-                    services.AddSingleton<IMarkdownReader, MarkdownReader>();
+                    services.AddSingleton<IExcelReader, ExcelReader>();
                     services.AddSingleton<IExcelWriter, ExcelWriter>();
+                    services.AddSingleton<IMarkdownReader, MarkdownReader>();
                     services.AddScoped<IMarkdownParser, MarkdownParser>();
+                    services.AddScoped<IMarkdownComposer, MarkdownComposer>();
                     services.AddScoped<IExcelDecoder, ExcelDecoder>();
+                    services.AddScoped<IExcelEncoder, ExcelEncoder>();
                 })
                 .RunConsoleAppFrameworkAsync<ApplicationLogic>(args);
         }
@@ -39,10 +43,13 @@ namespace UsdmConverter.ConsoleApp
     public class ApplicationLogic : ConsoleAppBase
     {
         private readonly ILogger<ApplicationLogic> _logger;
+        private readonly IExcelReader _excelReader;
         private readonly IExcelWriter _excelWriter;
         private readonly IMarkdownReader _markdownReader;
         private readonly IMarkdownParser _markdownParser;
+        private readonly IMarkdownComposer _markdownComposer;
         private readonly IExcelDecoder _excelDecoder;
+        private readonly IExcelEncoder _excelEncoder;
 
         /// <summary>
         /// Initializes a new instance of ApplicationLogic class.
@@ -54,17 +61,23 @@ namespace UsdmConverter.ConsoleApp
         /// <param name="excelDecoder"></param>
         public ApplicationLogic(
             ILogger<ApplicationLogic> logger,
+            IExcelReader excelReader,
             IExcelWriter excelWriter,
             IMarkdownReader markdownReader,
             IMarkdownParser markdownParser,
-            IExcelDecoder excelDecoder
+            IMarkdownComposer markdownComposer,
+            IExcelDecoder excelDecoder,
+            IExcelEncoder excelEncoder
         )
         {
             _logger = logger;
+            _excelReader = excelReader;
             _excelWriter = excelWriter;
             _markdownReader = markdownReader;
             _markdownParser = markdownParser;
+            _markdownComposer = markdownComposer;
             _excelDecoder = excelDecoder;
+            _excelEncoder = excelEncoder;
         }
 
         [Command("xlsx", "convert markdown to excel")]
@@ -85,7 +98,13 @@ namespace UsdmConverter.ConsoleApp
             [Option("o", "output markdown file path.")] string markdownFilePath
         )
         {
-            throw new NotImplementedException();
+            var book = _excelReader.Read(excelFilePath);
+            var entity = _excelEncoder.Encode(book);
+            var markdown = _markdownComposer.Compose(entity);
+            using (var sw = new StreamWriter(markdownFilePath))
+            {
+                sw.Write(markdown);
+            }
         }
     }
 }
