@@ -36,6 +36,13 @@ reason1-1
 #### 説明
 
 description1-1
+
+#### 仕様
+
+<group>
+
+* [ ] [SPC01-01-01]description1
+* [x] [SPC01-01-02]description2
 ";
             var data = new RequirementSpecification
             {
