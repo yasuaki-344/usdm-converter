@@ -2,14 +2,14 @@
 
 namespace UsdmConverter.ApplicationCore.Exceptions
 {
-    public class UsdmMarkDownFormatException : Exception
+    public class UsdmFormatException : Exception
     {
-        public UsdmMarkDownFormatException()
+        public UsdmFormatException()
             : base()
         {
         }
 
-        public UsdmMarkDownFormatException(string message)
+        public UsdmFormatException(string message)
             : base(message)
         {
         }
