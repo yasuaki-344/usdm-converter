@@ -76,7 +76,7 @@ namespace UsdmConverter.ApplicatonCore.Test
 
                     foreach (var group in requirement.SpecificationGroups)
                     {
-                        Assert.Equal("<仕様グループ>", group.Category);
+                        Assert.Equal("仕様グループ", group.Category);
 
                         Assert.False(group.Specifications[0].IsImplemented);
                         Assert.Equal("SPC01-01-01", group.Specifications[0].ID);

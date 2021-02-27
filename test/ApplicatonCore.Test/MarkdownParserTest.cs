@@ -66,7 +66,7 @@ description1-1
             Assert.Equal("reason1-1", lowerRequirement.Reason);
             Assert.Equal("description1-1", lowerRequirement.Description);
             var group = lowerRequirement.SpecificationGroups[0];
-            Assert.Equal("<仕様グループ>", group.Category);
+            Assert.Equal("仕様グループ", group.Category);
             var specifications = group.Specifications;
             Assert.False(specifications[0].IsImplemented);
             Assert.Equal("SPC01-01-01", specifications[0].ID);

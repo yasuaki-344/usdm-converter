@@ -129,28 +129,33 @@ namespace UsdmConverter.ApplicationCore.Services
 
         private void AnalyzeParagraph(MarkdownBlock element, RequirementSpecification data)
         {
+            var item = data.Requirements.Last();
             switch (status)
             {
                 case UsdmScope.UpperRequiremetReason:
-                    data.Requirements.Last().Reason += element.ToString() ?? string.Empty;
+                    item.Reason += element.ToString() ?? string.Empty;
                     break;
                 case UsdmScope.UpperRequiremetDescription:
-                    data.Requirements.Last().Description += element.ToString() ?? string.Empty;
+                    item.Description += element.ToString() ?? string.Empty;
                     break;
                 case UsdmScope.LowerRequiremetReason:
-                    data.Requirements.Last().Requirements.Last().Reason += element.ToString() ?? string.Empty;
+                    item.Requirements.Last().Reason += element.ToString() ?? string.Empty;
                     break;
                 case UsdmScope.LowerRequiremetDescription:
-                    data.Requirements.Last().Requirements.Last().Description += element.ToString() ?? string.Empty;
+                    item.Requirements.Last().Description += element.ToString() ?? string.Empty;
                     break;
                 case UsdmScope.Specification:
-                    data.Requirements.Last().Requirements.Last().SpecificationGroups.Add(
-                        new SpecificationGroup
-                        {
-
-                            Category = element.ToString() ?? string.Empty
-                        }
-                    );
+                    var rawString = element.ToString();
+                    if (rawString != null)
+                    {
+                        item.Requirements.Last()
+                            .SpecificationGroups.Add(
+                            new SpecificationGroup
+                            {
+                                Category = ParseUtility.ExtractGroupCategory(rawString)
+                            }
+                        );
+                    }
                     break;
                 default:
                     Console.WriteLine($"Type: {element.Type}");

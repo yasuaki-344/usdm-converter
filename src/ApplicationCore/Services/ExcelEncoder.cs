@@ -7,6 +7,7 @@ using NPOI.SS.UserModel;
 using UsdmConverter.ApplicationCore.Entities;
 using UsdmConverter.ApplicationCore.Exceptions;
 using UsdmConverter.ApplicationCore.Interfaces;
+using UsdmConverter.ApplicationCore.Logic;
 
 namespace UsdmConverter.ApplicationCore.Services
 {
@@ -91,7 +92,7 @@ namespace UsdmConverter.ApplicationCore.Services
                                 .SpecificationGroups.Add(
                                     new SpecificationGroup
                                     {
-                                        Category = category
+                                        Category = ParseUtility.ExtractGroupCategory(category)
                                     }
                                 );
                         }

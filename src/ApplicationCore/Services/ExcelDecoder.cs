@@ -101,7 +101,7 @@ namespace UsdmConverter.ApplicationCore.Services
                     foreach (var group in item.SpecificationGroups)
                     {
                         // 仕様グループの作成
-                        WriteCell(sheet, 2, rowIndex, group.Category);
+                        WriteCell(sheet, 2, rowIndex, $"<{group.Category}>");
                         WriteStyle(sheet, 1, rowIndex, baseStyle);
                         WriteStyle(sheet, 2, rowIndex, baseStyle);
                         WriteStyle(sheet, 3, rowIndex, baseStyle);

@@ -29,6 +29,18 @@ namespace UsdmConverter.ApplicationCore.Logic
             return string.IsNullOrEmpty(summay) ? (id, string.Empty) : (id, summay);
         }
 
+        static public string ExtractGroupCategory(string rawString)
+        {
+            if (rawString.StartsWith("<") && rawString.EndsWith(">"))
+            {
+                return rawString.Substring(1, rawString.Length - 2);
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
+
         /// <summary>
         /// Extracts USDM specification list from given ListBlock.
         /// </summary>
@@ -71,5 +83,6 @@ namespace UsdmConverter.ApplicationCore.Logic
             }
             return new Specification();
         }
+
     }
 }

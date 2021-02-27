@@ -79,7 +79,7 @@ namespace UsdmConverter.ApplicatonCore.Test
             Assert.Equal("reason1-1", sheet.GetRow(4).GetCell(3).StringCellValue);
             Assert.Equal("説明", sheet.GetRow(5).GetCell(2).StringCellValue);
             Assert.Equal("description1-1", sheet.GetRow(5).GetCell(3).StringCellValue);
-            Assert.Equal("group", sheet.GetRow(6).GetCell(2).StringCellValue);
+            Assert.Equal("<group>", sheet.GetRow(6).GetCell(2).StringCellValue);
             Assert.Equal("□", sheet.GetRow(7).GetCell(1).StringCellValue);
             Assert.Equal("SPC01-01-01", sheet.GetRow(7).GetCell(2).StringCellValue);
             Assert.Equal("description1", sheet.GetRow(7).GetCell(3).StringCellValue);
