@@ -21,7 +21,12 @@ namespace UsdmConverter.ApplicationCore.Services
         {
             var markdown = string.Empty;
             markdown += $"# {data.Title}\n";
-
+            foreach (var upperRequirement in data.Requirements)
+            {
+                markdown += $"\n## [{upperRequirement.ID}]{upperRequirement.Summary}\n";
+                markdown += $"\n### 理由\n\n{upperRequirement.Reason}\n";
+                markdown += $"\n### 説明\n\n{upperRequirement.Description}\n";
+            }
             return markdown;
         }
     }

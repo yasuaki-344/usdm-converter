@@ -16,6 +16,16 @@ namespace UsdmConverter.ApplicatonCore.Test
         public void ComposeCorrectly()
         {
             var expect = @"# title
+
+## [REQ01]requirement1
+
+### 理由
+
+reason1
+
+### 説明
+
+description1
 ";
             var data = new RequirementSpecification
             {
